@@ -1,0 +1,102 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Verification</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .error {
+    color: red;
+  }
+</style>
+</head>
+<body>
+
+<h3 id="h">Please click on the identical tiles to verify that you are not a robot.</h3>
+
+<div class="image-container">
+  <img src="image1.jpg" class="img1" alt="Image 1">
+  <img src="image2.jpg" class="img2" alt="Image 2">
+  <img src="image3.jpg" class="img3" alt="Image 3">
+  <img src="image4.jpg" class="img4" alt="Image 4">
+  <img src="image5.jpg" class="img5" alt="Image 5">
+  <img src="image6.jpg" class="img6" alt="Image 6">
+</div>
+
+<button id="reset" style="display: none;">Reset</button>
+<button id="verify" style="display: none;">Verify</button>
+
+<p id="para" style="display: none;"></p>
+
+<script>
+  const images = document.querySelectorAll('.image-container img');
+  const resetButton = document.getElementById('reset');
+  const verifyButton = document.getElementById('verify');
+  const para = document.getElementById('para');
+  let selectedImages = [];
+  let state = 1;
+
+  function shuffleImages() {
+    const imagesArray = Array.from(images);
+    imagesArray.sort(() => Math.random() - 0.5);
+    imagesArray.forEach((img, index) => {
+      img.style.order = index;
+    });
+  }
+
+  function resetState() {
+    selectedImages = [];
+    verifyButton.style.display = 'none';
+    para.style.display = 'none';
+    state = 1;
+    resetButton.style.display = 'none';
+    para.textContent = '';
+  }
+
+  function handleClick(event) {
+    const clickedImage = event.target;
+    if (!clickedImage.classList.contains('selected')) {
+      if (selectedImages.length >= 2) {
+        para.textContent = 'You can select max two images.';
+        para.style.display = 'block';
+        para.classList.add('error');
+        return;
+      }
+      clickedImage.classList.add('selected');
+      selectedImages.push(clickedImage);
+      if (selectedImages.length === 2) {
+        state = 3;
+        verifyButton.style.display = 'inline-block';
+      }
+    } else {
+      clickedImage.classList.remove('selected');
+      selectedImages = selectedImages.filter(img => img !== clickedImage);
+      verifyButton.style.display = 'none';
+      state = 2;
+    }
+  }
+
+  function verify() {
+    if (selectedImages.length !== 2) return;
+    const firstImgClass = selectedImages[0].className;
+    const secondImgClass = selectedImages[1].className;
+    if (firstImgClass === secondImgClass) {
+      para.textContent = 'You are a human. Congratulations!';
+    } else {
+      para.textContent = "We can't verify you as a human. You selected the non-identical tiles.";
+    }
+    para.style.display = 'block';
+    verifyButton.style.display = 'none';
+    state = 4;
+  } -->
+
+  shuffleImages();
+
+  images.forEach(img => {
+    img.addEventListener('click', function(event) {
+      if (state !== 5) {
+        handleClick(event);
+      } else {
+        para.textContent = 'You can select
+      
